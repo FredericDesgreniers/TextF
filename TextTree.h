@@ -13,7 +13,7 @@ class TextTree
 public:
 	TextTree(std::string &string);
 
-	void traverse();
+	void traverse(std::function<void (Node*)> doFunction);
 
 	Node *getCursorNode();
 

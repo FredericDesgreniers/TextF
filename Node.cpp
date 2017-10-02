@@ -70,26 +70,18 @@ bool Node::shouldSplit(char c)
 	return c == ' ' || c == '\n';
 }
 
-void Node::traverse()
+void Node::traverse(const std::function<void (Node*)>& doFunction)
 {
 	if (getLeft() != nullptr)
 	{
-		getLeft()->traverse();
+		getLeft()->traverse(doFunction);
 	}
 
-	if (cursorPos >= 0)
-	{
-		std::cout << getValue().substr(0, cursorPos)
-		          << "_"
-		          << getValue().substr(cursorPos + 1);
-	} else
-	{
-		std::cout << getValue();
-	}
+	doFunction(this);
 
 	if (getRight() != nullptr)
 	{
-		getRight()->traverse();
+		getRight()->traverse(doFunction);
 	}
 
 }
@@ -134,14 +126,14 @@ void Node::setCursorPos(int newCursorPos)
 	}
 	else
 	{
-		if (value[newCursorPos] == '\n' && cu
+		if (value[newCursorPos] == '\n')
 		{
 			if (newCursorPos > cursorPos)
 			{
 				setCursorPos(newCursorPos + 1);
 			} else
 			{
-				setCursorPos(newCursorPos - 1);
+				setCursorPos(newCursorPos - 2);
 			}
 		} else
 		{
@@ -227,4 +219,6 @@ void Node::moveCursorBackwardsInChild(Node *origin)
 		}
 	}
 }
+
+
 

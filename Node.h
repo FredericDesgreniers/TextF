@@ -4,7 +4,8 @@
 
 #pragma once
 #include <string>
-
+#include "TextRenderer.h"
+#include <functional>
 class Node
 {
 	std::string value;
@@ -43,7 +44,7 @@ public:
 
 	bool shouldSplit(char c);
 
-	void traverse();
+	void traverse(const std::function<void (Node*)>& f);
 
 	Node *getLeft() const
 	{

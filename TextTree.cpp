@@ -4,9 +4,9 @@
 
 #include "TextTree.h"
 
-void TextTree::traverse()
+void TextTree::traverse(std::function<void (Node*)> doFunction)
 {
-	root.traverse();
+	root.traverse(doFunction);
 }
 
 TextTree::TextTree(std::string &string) : root(nullptr, string)

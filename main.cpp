@@ -4,8 +4,59 @@
 #include <winuser.h>
 #include <wincon.h>
 #include "TextTree.h"
+#include "ConsoleTextRenderer.h"
 
 TextTree *textTree;
+
+void redrawText()
+{
+	HWND consoleHandle = GetConsoleWindow();
+	HDC consoleDC = GetDC(consoleHandle);
+
+	ConsoleTextRenderer renderer(consoleDC);
+
+
+	SetTextColor(consoleDC, 0x00FFFFFF);
+	SetBkColor(consoleDC, 0x00000000);
+
+	textTree->traverse([&renderer, &consoleDC](Node* node){
+		if(node->getValue().length() > 0)
+		{
+			if (node->getValue().compare("\n") == 0)
+			{
+				renderer.nextLine();
+			} else
+			{
+				if (node->getCursorPos() >= 0)
+				{
+					if(node->getCursorPos() > 0)
+					{
+						std::string textBeforeCursor = node->getValue().substr(0, node->getCursorPos());
+						renderer.drawTextToCurrentLine(textBeforeCursor.c_str(), textBeforeCursor.size());
+					}
+
+					COLORREF fontColor = SetTextColor(consoleDC, 0x00000000);
+					COLORREF backgroundColor = SetBkColor(consoleDC, 0x00FFFFFF);
+					std::string value = node->getValue();
+					const char c = value.at(node->getCursorPos());
+					renderer.drawTextToCurrentLine(&c, 1);
+					SetTextColor(consoleDC, fontColor);
+					SetBkColor(consoleDC, backgroundColor);
+
+					if(node->getCursorPos() < value.size()-1)
+					{
+						std::string textAfterCursor = node->getValue().substr(node->getCursorPos() + 1);
+						renderer.drawTextToCurrentLine(textAfterCursor.c_str(), textAfterCursor.size());
+					}
+
+				} else
+				{
+					renderer.drawTextToCurrentLine(node->getValue().c_str(), node->getValue().size());
+				}
+			}
+		}
+	});
+}
 
 LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
@@ -25,8 +76,8 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 				textTree->moveCursorLeft();
 			}break;
 		}
-		system("cls");
-		textTree->traverse();
+
+		redrawText();
 	}
 }
 
@@ -53,13 +104,16 @@ int main()
 
 	textTree = new TextTree(s);
 
-	textTree->traverse();
 
-	HANDLE consoleHandle = GetConsoleWindow();
+
+
 	if(SetWindowsHookEx(WH_KEYBOARD_LL, &LowLevelKeyboardProc, NULL, 0))
 	{
-		std::cout << "YAY";
+
 	}
+
+
+	redrawText();
 
 	MSG msg;
 	while(GetMessage( &msg, NULL, 0, 0 ))

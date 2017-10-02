@@ -1,3 +1,3 @@
+C:/Users/frede/CLionProjects/TextF/CMakeFiles/edit_cache.dir
 C:/Users/frede/CLionProjects/TextF/CMakeFiles/TextF.dir
-C:/Users/frede/CLionProjects/TextF/CMakeFiles/ALL_BUILD.dir
-C:/Users/frede/CLionProjects/TextF/CMakeFiles/ZERO_CHECK.dir
+C:/Users/frede/CLionProjects/TextF/CMakeFiles/rebuild_cache.dir

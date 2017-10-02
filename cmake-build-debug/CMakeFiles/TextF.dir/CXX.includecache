@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/frede/CLionProjects/TextF/Node.cpp
+iostream
+-
+Node.h
+C:/Users/frede/CLionProjects/TextF/Node.h
+
+C:/Users/frede/CLionProjects/TextF/Node.h
+string
+-
+
+C:/Users/frede/CLionProjects/TextF/TextTree.cpp
+TextTree.h
+C:/Users/frede/CLionProjects/TextF/TextTree.h
+
+C:/Users/frede/CLionProjects/TextF/TextTree.h
+Node.h
+C:/Users/frede/CLionProjects/TextF/Node.h
+
+C:/Users/frede/CLionProjects/TextF/main.cpp
+fstream
+-
+iostream
+-
+sstream
+-
+winuser.h
+-
+wincon.h
+-
+TextTree.h
+C:/Users/frede/CLionProjects/TextF/TextTree.h
+

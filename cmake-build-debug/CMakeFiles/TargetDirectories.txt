@@ -1,0 +1,3 @@
+C:/Users/frede/CLionProjects/TextF/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/frede/CLionProjects/TextF/cmake-build-debug/CMakeFiles/TextF.dir
+C:/Users/frede/CLionProjects/TextF/cmake-build-debug/CMakeFiles/rebuild_cache.dir
